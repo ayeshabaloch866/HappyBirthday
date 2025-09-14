@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday❤️</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <canvas id="fireworks"></canvas>
+
+    <div class="title">
+        <div class="text">
+            <h1>HAPPY BIRTHDAY <br>TO YOU MY LOVE 🎂✨💋</h1>
+            <p>you are the reason my days shine brighter and my heart beats happier. </p>
+            <p>You make my world brighter with your love, and today I just want to remind you</p>
+            <p>how special you are to me.</p>
+            <h2>Play🎶</h2>
+            <audio controls>
+                <source src="music/happy-birthday-334876.mp3" type="audio/mp3">
+            </audio>
+        </div>
+    </div>
+    <h2>Favourite Pictures Of Mine 💖🥰</h2>
+    <div class="pics-container">
+        <div class="card">
+            <img src="pics/1.jpg" alt="">
+        </div>
+        <div class="card">
+            <img src="pics/5.jpg" alt="">
+        </div>
+        <div class="card">
+            <img src="pics/3.jpg" alt="">
+        </div>
+        <div class="card">
+            <img src="pics/4.jpg" alt="">
+        </div>
+
+    </div>
+    <h2>Lets Watch Some videos 🎥🎞️</h2>
+    <section class="videos-container">
+        <div class="clips">
+            <h3>That fun with You</h3>
+            <video controls>
+                <source src="videos/2.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="clips">
+            <h3>Look at You</h3>
+            <video controls>
+                <source src="videos/1.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="clips">
+            <h3>That holding of Hands</h3>
+            <video controls>
+                <source src="videos/3.mp4" type="video/mp4">
+            </video>
+        </div>
+
+    </section>
+
+    <section class="quotes">
+        <h2>What Love Truly Means💙</h2>
+        <div class="quote-box">
+            <p id="quote">"You are my today and all of my tomorrows."</p>
+            <p>“Love is not just about the smiles and laughter we share,<br> but about
+                the comfort in silence, the strength in struggles, and <br>the warmth in every little gesture.
+                True love is waking up each day and choosing the same person<br>
+                over and over again, not because you have to, but because your<br> heart
+                knows there is no one else who could ever make it feel so complete.”</p>
+        </div>
+    </section>
+
+    <section class="message">
+        <h2>A Message From My Heart 💌</h2>
+        <p>
+            Happy Birthday, My Man<br>
+            On this special day, I just want to remind you how deeply you mean to me.<br>
+            You are not just the love of my life, but also my safe place, my smile in hard times, and my happiness in
+            every little moment.<br>
+            Every day with you feels like a gift, and today, I want to celebrate the most precious gift of all you.
+            🎁✨<br>
+            I wish your year ahead is filled with laughter, success, peace, and endless love. But above everything,<br>
+            I pray that our bond only grows stronger, and we create memories together that last forever.<br>
+            You are my heart, my home, and my forever. 💕<br>
+            Happy Birthday, my love today and always, I celebrate you.💙✨
+        </p>
+        <div class="gift-link">
+            <a href="gift.html" target="_blank">OPEN🎁 </a>
+        </div>
+    </section>
+
+    <section class="big-kiss">
+        <h2>I LOVE YOU SOOOOOOO MUCH</h2>
+        <div class="kiss-wrap" id="kissWrap" aria-hidden="false">
+            <span class="kiss">💋</span>
+            <p class="kiss-text">A Big Kiss for You</p>
+        </div>
+
+        <button id="kissBtn" class="kiss-btn" aria-pressed="false">Click</button>
+    </section>
+
+
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Made with 💙 and endless love, just for <strong>You USMAN</strong>.</p>
+            <p class="smile-msg">I hope you like it… if you do, then just smile 💙😊</p>
+        </div>
+    </footer>
+
+    <script>
+        const kissBtn = document.getElementById('kissBtn');
+        const kissWrap = document.getElementById('kissWrap');
+
+        // heart shapes to use (emoji or characters)
+        const heartChars = ['❤', '💙', '💜', '💛', '💖', '💕', '💗'];
+
+        kissBtn.addEventListener('click', () => {
+            // add pop animation
+            kissWrap.classList.remove('kiss-pop');
+            void kissWrap.offsetWidth; // force reflow to restart animation
+            kissWrap.classList.add('kiss-pop');
+
+            // create a few flying hearts
+            for (let i = 0; i < 6; i++) {
+                createHeart(i);
+            }
+        });
+
+        function createHeart(i) {
+            const heart = document.createElement('div');
+            heart.className = 'flying-heart';
+            // random color class
+            const colors = ['red', 'pink', 'blue', 'gold'];
+            heart.classList.add(colors[Math.floor(Math.random() * colors.length)]);
+            // choose random heart char
+            heart.textContent = heartChars[Math.floor(Math.random() * heartChars.length)];
+
+            // slight horizontal spread
+            const spread = (Math.random() - 0.5) * 140; // -70 .. 70 px
+            heart.style.left = `calc(50% + ${spread}px)`;
+
+            // random animation duration & delay
+            const dur = 800 + Math.floor(Math.random() * 400); // 800-1200ms
+            heart.style.animationDuration = dur + 'ms';
+
+            kissWrap.appendChild(heart);
+
+            // remove after animation
+            setTimeout(() => heart.remove(), dur + 50);
+        }
+    </script>
+
+    <script>
+        const canvas = document.getElementById('fireworks');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let fireworks = [];
+        let particles = [];
+
+        class Firework {
+            constructor(x, y, targetY, color) {
+                this.x = x;
+                this.y = y;
+                this.targetY = targetY;
+                this.color = color;
+                this.speed = 4;
+            }
+            update() {
+                this.y -= this.speed;
+                if (this.y <= this.targetY) {
+                    this.explode();
+                    return true;
+                }
+                return false;
+            }
+            explode() {
+                for (let i = 0; i < 50; i++) {
+                    particles.push(new Particle(this.x, this.y, this.color));
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.speedX = (Math.random() - 0.5) * 6;
+                this.speedY = (Math.random() - 0.5) * 6;
+                this.alpha = 1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.alpha -= 0.02;
+                return this.alpha <= 0;
+            }
+            draw() {
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.globalAlpha = 1;
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (Math.random() < 0.05) {
+                fireworks.push(
+                    new Firework(
+                        Math.random() * canvas.width,
+                        canvas.height,
+                        Math.random() * (canvas.height / 2),
+                        `hsl(${Math.random() * 360}, 100%, 60%)`
+                    )
+                );
+            }
+
+            fireworks = fireworks.filter(fw => {
+                fw.draw();
+                return !fw.update();
+            });
+
+            particles = particles.filter(p => {
+                p.draw();
+                return !p.update();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+
+
+
+</body>
+
+</html>
